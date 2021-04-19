@@ -117,12 +117,16 @@ def read_datapackage(dp, resource_name=None):
             # Get encoding
             encoding = resource.get("encoding", "utf-8")
 
+            # Initialize thousands_sep
+            thousands_sep = None
+
             if "fields" in resource["schema"]:
                 for column in resource["schema"]["fields"]:
                     col_type = column.get("type", None)
                     # Get thousands separator from field level, if defined.
                     # Note that this will be applied to all fields.
-                    thousands_sep = column.get("groupChar", None)
+                    if column.get("groupChar", None) != None:
+                        thousands_sep = column["groupChar"]
                     if col_type == "number":
                         dtypes[column["name"]] = "float64"
                     elif col_type == "integer":
