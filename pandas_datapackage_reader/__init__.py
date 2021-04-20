@@ -169,7 +169,10 @@ def read_datapackage(dp, resource_name=None):
                     df[column["name"]], format=format
                 ).dt.time
             elif column["type"] == "year":
-                df[column["name"]] = df[column["name"]].astype(int)
+                try:
+                    df[column["name"]] = df[column["name"]].astype(int)
+                except ValueError:
+                    print("Failed to convert years to integers")
             elif column["type"] == "yearmonth":
                 df[column["name"]] = pd.to_datetime(
                     df[column["name"]], format="%Y-%m"
