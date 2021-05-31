@@ -136,6 +136,10 @@ def read_datapackage(dp, resource_name=None, delimiter=","):
                     elif col_type == "string":
                         dtypes[column["name"]] = "object"
 
+        if "dialect" in resource:
+            if "delimiter" in resource["dialect"]:
+                delimiter = resource["dialect"]["delimiter"]
+                
         if format == "csv":
             df = pd.read_csv(
                 resource_path,
