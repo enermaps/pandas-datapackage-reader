@@ -29,7 +29,7 @@ __version__ = get_versions()["version"]
 del get_versions
 
 
-def read_datapackage(dp, resource_name=None):
+def read_datapackage(dp, resource_name=None, separator=","):
     """
     Read tabular CSV files from Data Packages into DataFrames.
 
@@ -41,6 +41,8 @@ def read_datapackage(dp, resource_name=None):
     resource_name: string or list of strings
         Name or names of resources to read. Lists of strings are used to
         request multiple resources.
+    separator: string
+        Separator in CSV file. Default = ",".
 
     Returns
     -------
@@ -144,6 +146,7 @@ def read_datapackage(dp, resource_name=None):
                 thousands=thousands_sep,
                 decimal=decimal_char,
                 encoding=encoding,
+                separator=separator,
             )
         elif format == "geojson":
             import geopandas
