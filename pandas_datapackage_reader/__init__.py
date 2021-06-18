@@ -154,8 +154,16 @@ def read_datapackage(dp, resource_name=None, delimiter=","):
             )
         elif format == "geojson":
             import geopandas
-
             df = geopandas.read_file(resource_path)
+        elif format == "xlsx":
+            df = pd.read_excel(
+                resource_path,
+                na_filter=True,
+                na_values=missing_values,
+                keep_default_na=False,
+                dtype=dtypes,
+                thousands=thousands_sep,
+            )
         else:
             continue
 
